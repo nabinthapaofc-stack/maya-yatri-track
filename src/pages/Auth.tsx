@@ -1,13 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
-import yatriLogo from "@/assets/yatri-logo.png";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -15,9 +13,8 @@ const Auth = () => {
   const role = searchParams.get("role") || "passenger";
   
   const [isLogin, setIsLogin] = useState(true);
-  const [phone, setPhone] = useState("");
-  const [otp, setOtp] = useState("");
-  const [showOtp, setShowOtp] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
   const getRoleTitle = () => {
@@ -33,20 +30,14 @@ const Auth = () => {
     }
   };
 
-  const handleSendOTP = () => {
-    if (!phone || phone.length < 10) {
-      toast.error("Please enter a valid phone number");
+  const handleSubmit = () => {
+    if (!email || !password) {
+      toast.error("Please fill in all fields");
       return;
     }
-    
-    // Simulate OTP send
-    setShowOtp(true);
-    toast.success("OTP sent to your phone!");
-  };
 
-  const handleVerifyOTP = () => {
-    if (!otp || otp.length !== 6) {
-      toast.error("Please enter a valid 6-digit OTP");
+    if (!isLogin && !name) {
+      toast.error("Please enter your name");
       return;
     }
 
@@ -85,15 +76,13 @@ const Auth = () => {
 
         <Card className="shadow-lg">
           <CardHeader className="space-y-4 text-center pb-4">
-            <img
-              src={yatriLogo}
-              alt="म Yatri"
-              className="w-20 h-20 mx-auto"
-            />
+            <div className="text-5xl font-bold text-primary mx-auto">
+              म <span className="font-normal">Yatri</span>
+            </div>
             <div>
               <CardTitle className="text-2xl">{getRoleTitle()} {isLogin ? "Login" : "Sign Up"}</CardTitle>
               <CardDescription>
-                {isLogin ? "Welcome back!" : "Create your account"} Enter your phone number to continue
+                {isLogin ? "Welcome back!" : "Create your account"}
               </CardDescription>
             </div>
           </CardHeader>
@@ -101,7 +90,7 @@ const Auth = () => {
           <CardContent>
             <div className="space-y-4">
               {/* Name field for signup */}
-              {!isLogin && !showOtp && (
+              {!isLogin && (
                 <div className="space-y-2">
                   <Label htmlFor="name">Full Name</Label>
                   <Input
@@ -114,46 +103,37 @@ const Auth = () => {
                 </div>
               )}
 
-              {/* Phone Input */}
-              {!showOtp && (
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="98XXXXXXXX"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    maxLength={10}
-                  />
-                </div>
-              )}
+              {/* Email Input */}
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="your@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
 
-              {/* OTP Input */}
-              {showOtp && (
-                <div className="space-y-2">
-                  <Label htmlFor="otp">Enter OTP</Label>
-                  <Input
-                    id="otp"
-                    type="text"
-                    placeholder="Enter 6-digit OTP"
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value)}
-                    maxLength={6}
-                  />
-                  <p className="text-sm text-muted-foreground">
-                    OTP sent to +977 {phone}
-                  </p>
-                </div>
-              )}
+              {/* Password Input */}
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
 
               {/* Action Button */}
               <Button
                 className="w-full"
                 size="lg"
-                onClick={showOtp ? handleVerifyOTP : handleSendOTP}
+                onClick={handleSubmit}
               >
-                {showOtp ? "Verify OTP" : "Send OTP"}
+                {isLogin ? "Login" : "Sign Up"}
               </Button>
 
               {/* Toggle Login/Signup */}
@@ -162,10 +142,7 @@ const Auth = () => {
                   <p>
                     Don't have an account?{" "}
                     <button
-                      onClick={() => {
-                        setIsLogin(false);
-                        setShowOtp(false);
-                      }}
+                      onClick={() => setIsLogin(false)}
                       className="text-primary hover:underline font-medium"
                     >
                       Sign Up
@@ -175,10 +152,7 @@ const Auth = () => {
                   <p>
                     Already have an account?{" "}
                     <button
-                      onClick={() => {
-                        setIsLogin(true);
-                        setShowOtp(false);
-                      }}
+                      onClick={() => setIsLogin(true)}
                       className="text-primary hover:underline font-medium"
                     >
                       Login

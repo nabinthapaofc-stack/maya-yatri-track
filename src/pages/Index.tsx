@@ -36,11 +36,9 @@ const Index = () => {
           <div className="flex flex-col items-center text-center">
             {/* Logo Animation */}
             <div className="mb-8 animate-scale-in">
-              <img
-                src={yatriLogo}
-                alt="म Yatri"
-                className="w-32 h-32 md:w-40 md:h-40 drop-shadow-lg"
-              />
+              <div className="text-6xl md:text-8xl font-bold text-white drop-shadow-lg">
+                म <span className="font-normal">Yatri</span>
+              </div>
             </div>
 
             {showContent && (
@@ -67,8 +65,7 @@ const Index = () => {
                   </Button>
                   <Button
                     size="lg"
-                    variant="outline"
-                    className="border-2 border-white text-white hover:bg-white/10 text-lg px-8 py-6"
+                    className="bg-white/20 text-white hover:bg-white/30 border-2 border-white/50 backdrop-blur-sm text-lg px-8 py-6"
                     onClick={() => navigate("/auth?role=driver")}
                   >
                     I'm a Driver
