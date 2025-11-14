@@ -35,27 +35,19 @@ const Index = () => {
         <div className="relative z-10 container mx-auto px-4 py-20 md:py-32">
           <div className="flex flex-col items-center text-center">
             {/* Logo Animation */}
-            <div className="mb-8 animate-scale-in">
-              <div className="text-6xl md:text-8xl font-bold text-white drop-shadow-lg">
-                म <span className="font-normal">Yatri</span>
+            <div className="mb-16 animate-scale-in">
+              <div className="text-7xl md:text-9xl font-bold text-white drop-shadow-2xl">
+                म <span className="font-light">Yatri</span>
               </div>
+              <p className="text-white/60 text-sm md:text-base mt-4 tracking-widest">
+                मेरो यात्रा, सजिलो यात्रा
+              </p>
             </div>
 
             {showContent && (
               <>
-                {/* Title */}
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 animate-slide-up">
-                  म Yatri
-                </h1>
-                <p className="text-xl md:text-2xl text-white/90 mb-2 animate-slide-up" style={{ animationDelay: "0.1s" }}>
-                  मेरो यात्रा, सजिलो यात्रा
-                </p>
-                <p className="text-lg md:text-xl text-white/80 mb-12 max-w-2xl animate-slide-up" style={{ animationDelay: "0.2s" }}>
-                  Smart, Safe & Real-time Public Transportation for Nepal
-                </p>
-
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 mb-16 animate-slide-up" style={{ animationDelay: "0.3s" }}>
+                <div className="flex flex-col sm:flex-row gap-4 mb-16 animate-fade-in" style={{ animationDelay: "0.1s" }}>
                   <Button
                     size="lg"
                     className="bg-white text-primary hover:bg-white/90 shadow-lg text-lg px-8 py-6"
@@ -76,7 +68,7 @@ const Index = () => {
                 <button
                   onClick={() => navigate("/auth?role=admin")}
                   className="text-white/70 hover:text-white underline text-sm animate-fade-in"
-                  style={{ animationDelay: "0.4s" }}
+                  style={{ animationDelay: "0.2s" }}
                 >
                   Admin Login
                 </button>
