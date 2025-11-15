@@ -7,8 +7,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import PassengerDashboard from "./pages/passenger/Dashboard";
+import PassengerHistory from "./pages/passenger/History";
+import PassengerSearch from "./pages/passenger/Search";
+import PassengerMessages from "./pages/passenger/Messages";
 import DriverDashboard from "./pages/driver/Dashboard";
 import AdminDashboard from "./pages/admin/Dashboard";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import SplashAnimation from "./components/SplashAnimation.jsx";
 
@@ -41,6 +45,9 @@ const App = () => {
             
             {/* Passenger Routes */}
             <Route path="/passenger/dashboard" element={<PassengerDashboard />} />
+            <Route path="/passenger/history" element={<PassengerHistory />} />
+            <Route path="/passenger/search" element={<PassengerSearch />} />
+            <Route path="/passenger/messages" element={<PassengerMessages />} />
             
             {/* Driver Routes */}
             <Route path="/driver/dashboard" element={<DriverDashboard />} />
@@ -48,6 +55,9 @@ const App = () => {
             {/* Admin Routes */}
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             
+            {/* Profile Route */}
+            <Route path="/profile" element={<Profile />} />
+
             {/* Catch-all 404 */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
+import { loginUser, registerUser, AuthServiceError } from "@/services/authService";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const getRoleTitle = () => {
     switch (role) {
@@ -30,7 +32,7 @@ const Auth = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!email || !password) {
       toast.error("Please fill in all fields");
       return;
@@ -41,22 +43,37 @@ const Auth = () => {
       return;
     }
 
-    // Simulate successful login/signup
-    toast.success(`Welcome to म Yatri!`);
-    
-    // Navigate based on role
-    switch (role) {
-      case "passenger":
-        navigate("/passenger/dashboard");
-        break;
-      case "driver":
-        navigate("/driver/dashboard");
-        break;
-      case "admin":
-        navigate("/admin/dashboard");
-        break;
-      default:
-        navigate("/");
+    try {
+      setIsLoading(true);
+      if (isLogin) {
+        await loginUser({ email, password, role });
+        toast.success("Logged in successfully");
+      } else {
+        await registerUser({ name, email, password, role });
+        toast.success("Account created successfully");
+      }
+
+      switch (role) {
+        case "passenger":
+          navigate("/passenger/dashboard");
+          break;
+        case "driver":
+          navigate("/driver/dashboard");
+          break;
+        case "admin":
+          navigate("/admin/dashboard");
+          break;
+        default:
+          navigate("/");
+      }
+    } catch (error) {
+      if (error instanceof AuthServiceError) {
+        toast.error(error.message);
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -128,12 +145,8 @@ const Auth = () => {
               </div>
 
               {/* Action Button */}
-              <Button
-                className="w-full"
-                size="lg"
-                onClick={handleSubmit}
-              >
-                {isLogin ? "Login" : "Sign Up"}
+              <Button className="w-full" size="lg" onClick={handleSubmit} disabled={isLoading}>
+                {isLoading ? "Please wait..." : isLogin ? "Login" : "Sign Up"}
               </Button>
 
               {/* Toggle Login/Signup */}

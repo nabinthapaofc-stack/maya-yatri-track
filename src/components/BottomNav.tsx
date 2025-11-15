@@ -15,7 +15,7 @@ const BottomNav = ({ role }: BottomNavProps) => {
     { icon: Search, label: "Search", path: "/passenger/search" },
     { icon: History, label: "History", path: "/passenger/history" },
     { icon: MessageSquare, label: "Messages", path: "/passenger/messages" },
-    { icon: User, label: "Profile", path: "/passenger/profile" },
+    { icon: User, label: "Profile", path: "/profile" },
   ];
 
   const driverNavItems = [
@@ -23,7 +23,7 @@ const BottomNav = ({ role }: BottomNavProps) => {
     { icon: Users, label: "Passengers", path: "/driver/passengers" },
     { icon: TrendingUp, label: "Earnings", path: "/driver/earnings" },
     { icon: MessageSquare, label: "Messages", path: "/driver/messages" },
-    { icon: User, label: "Profile", path: "/driver/profile" },
+    { icon: User, label: "Profile", path: "/profile" },
   ];
 
   const navItems = role === "passenger" ? passengerNavItems : driverNavItems;

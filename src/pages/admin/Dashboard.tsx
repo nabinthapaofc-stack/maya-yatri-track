@@ -1,38 +1,98 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
+  DropdownMenu, 
+  DropdownMenuTrigger, 
+  DropdownMenuContent, 
+  DropdownMenuItem 
+} from "@/components/ui/dropdown-menu";
+import { 
   Bus, Users, TrendingUp, AlertCircle, CheckCircle, Clock, 
-  Shield, MapPin, Menu, User, FileCheck 
+  Shield, MapPin, Menu, User, FileCheck, XCircle, MailCheck, RefreshCw 
 } from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
+import { getAuthUser } from "@/lib/authSession";
+import { cn } from "@/lib/utils";
+import { signOut } from "@/services/authService";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
 
-  const stats = {
-    totalBuses: 156,
-    activeBuses: 142,
-    totalDrivers: 203,
-    verifiedDrivers: 189,
-    pendingVerifications: 14,
-    todayTrips: 1247,
-    activePassengers: 3421,
-    emergencyAlerts: 2,
+  const handleLogout = async () => {
+    await signOut();
+    navigate("/auth");
   };
 
-  const pendingVerifications = [
-    { id: 1, name: "Ram Bahadur Thapa", type: "Driver", license: "DL-2024-001", submitted: "2 hours ago" },
-    { id: 2, name: "Sita Kumari Rai", type: "Driver", license: "DL-2024-002", submitted: "5 hours ago" },
-    { id: 3, name: "Hari Prasad Shrestha", type: "Driver", license: "DL-2024-003", submitted: "1 day ago" },
-  ];
+  const [authUser] = useState(() => getAuthUser());
+  const [pendingRequests, setPendingRequests] = useState<PendingBusRequest[]>([]);
+  const [loadingRequests, setLoadingRequests] = useState(false);
+  const [requestError, setRequestError] = useState<string | null>(null);
+  const [actingOn, setActingOn] = useState<string | null>(null);
 
-  const recentAlerts = [
-    { id: 1, type: "SOS", bus: "001", location: "Chabahil", time: "10 min ago", severity: "high" },
-    { id: 2, type: "Route Deviation", bus: "045", location: "Kalanki", time: "25 min ago", severity: "medium" },
-  ];
+  const stats = {
+    totalBuses: 0,
+    activeBuses: 0,
+    totalDrivers: 0,
+    verifiedDrivers: 0,
+    pendingVerifications: pendingRequests.length,
+    todayTrips: 0,
+    activePassengers: 0,
+    emergencyAlerts: 0,
+  };
+
+  const loadRequests = async () => {
+    setLoadingRequests(true);
+    setRequestError(null);
+    try {
+      const data = await fetchPendingBusRequests();
+      setPendingRequests(data);
+    } catch (error) {
+      const message = error instanceof BusServiceError ? error.message : "Unable to load verification requests.";
+      setRequestError(message);
+    } finally {
+      setLoadingRequests(false);
+    }
+  };
+
+  useEffect(() => {
+    void loadRequests();
+  }, []);
+
+  const handleBusDecision = async (busId: string, status: "approved" | "rejected") => {
+    setActingOn(busId + status);
+    try {
+      await updateBusStatus(busId, status);
+      toast({
+        title: `Bus ${status}`,
+        description: status === "approved" ? "Driver will be notified via upcoming email hook." : "Request rejected",
+      });
+      await loadRequests();
+    } catch (error) {
+      const message = error instanceof BusServiceError ? error.message : "Unable to update status.";
+      toast({ title: "Action failed", description: message, variant: "destructive" });
+    } finally {
+      setActingOn(null);
+    }
+  };
+
+  const formattedRequests = useMemo(() => pendingRequests, [pendingRequests]);
+
+  const recentAlerts: { id: number; type: string; bus: string; location: string; time: string; severity: string; }[] = [];
+
+  if (!authUser || authUser.role !== "admin") {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Card className="p-8 text-center space-y-4">
+          <p className="text-lg font-semibold">Admin access required.</p>
+          <Button onClick={() => navigate("/auth?role=admin")}>Go to Admin Login</Button>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -49,9 +109,17 @@ const AdminDashboard = () => {
                 <p className="text-sm text-white/80">म Yatri Transport Management</p>
               </div>
             </div>
-            <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
-              <User className="w-5 h-5" />
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
+                  <User className="w-5 h-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => navigate("/profile")}>Profile</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* Quick Stats */}
@@ -167,44 +235,86 @@ const AdminDashboard = () => {
           <TabsContent value="verification" className="space-y-6">
             <section>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-semibold">Pending Verifications</h2>
-                <Badge variant="outline">{stats.pendingVerifications} Pending</Badge>
+                <h2 className="text-xl font-semibold">Pending Bus Registrations</h2>
+                <div className="flex items-center gap-3">
+                  {requestError && <Badge variant="destructive">{requestError}</Badge>}
+                  <Badge variant="outline">{stats.pendingVerifications} Pending</Badge>
+                  <Button variant="outline" size="icon" onClick={() => void loadRequests()} disabled={loadingRequests}>
+                    <RefreshCw className={cn("w-4 h-4", loadingRequests && "animate-spin")} />
+                  </Button>
+                </div>
               </div>
-              
-              <div className="space-y-3">
-                {pendingVerifications.map((item) => (
-                  <Card key={item.id} className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                          <FileCheck className="w-6 h-6 text-primary" />
+
+              {loadingRequests ? (
+                <Card className="p-6 text-center text-muted-foreground">Loading requests…</Card>
+              ) : formattedRequests.length === 0 ? (
+                <Card className="p-6 text-center text-muted-foreground">No pending requests.</Card>
+              ) : (
+                <div className="space-y-3">
+                  {formattedRequests.map((item) => (
+                    <Card key={item.id} className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex flex-col gap-2">
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                              <FileCheck className="w-6 h-6 text-primary" />
+                            </div>
+                            <div>
+                              <h3 className="font-semibold">{item.bus_name}</h3>
+                              <p className="text-sm text-muted-foreground">{item.company_name}</p>
+                            </div>
+                          </div>
+                          <div className="grid md:grid-cols-2 gap-3 text-sm text-muted-foreground">
+                            <p>
+                              <strong>Driver:</strong> {item.driver?.name ?? "Unknown"} ({item.driver?.email})
+                            </p>
+                            <p>
+                              <strong>License:</strong> {item.driver?.license_number ?? "-"}
+                            </p>
+                            <p>
+                              <strong>Route:</strong> {item.route}
+                            </p>
+                            <p>
+                              <strong>Submitted:</strong> {new Date(item.created_at).toLocaleString()}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <h3 className="font-semibold">{item.name}</h3>
-                          <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                            <Badge variant="outline">{item.type}</Badge>
-                            <span>License: {item.license}</span>
-                            <span>•</span>
-                            <span className="flex items-center gap-1">
-                              <Clock className="w-3 h-3" />
-                              {item.submitted}
-                            </span>
+                        <div className="flex flex-col gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="justify-start"
+                            onClick={() => toast({ title: "Driver contact", description: `${item.driver?.email ?? item.driver?.phone ?? "No contact"}` })}
+                          >
+                            <MailCheck className="w-4 h-4 mr-2" />
+                            Contact
+                          </Button>
+                          <div className="flex gap-2">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              disabled={actingOn === item.id + "rejected"}
+                              onClick={() => handleBusDecision(item.id, "rejected")}
+                            >
+                              <XCircle className="w-4 h-4 mr-2" />
+                              Reject
+                            </Button>
+                            <Button
+                              size="sm"
+                              className="bg-success hover:bg-success/90"
+                              disabled={actingOn === item.id + "approved"}
+                              onClick={() => handleBusDecision(item.id, "approved")}
+                            >
+                              <CheckCircle className="w-4 h-4 mr-2" />
+                              Approve
+                            </Button>
                           </div>
                         </div>
                       </div>
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm">
-                          Review
-                        </Button>
-                        <Button size="sm" className="bg-success hover:bg-success/90">
-                          <CheckCircle className="w-4 h-4 mr-2" />
-                          Approve
-                        </Button>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
+                    </Card>
+                  ))}
+                </div>
+              )}
             </section>
 
             {/* Driver Statistics */}
@@ -244,11 +354,11 @@ const AdminDashboard = () => {
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">Idle</span>
-                      <span className="font-semibold text-warning">8</span>
+                      <span className="font-semibold text-warning">0</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">Offline</span>
-                      <span className="font-semibold text-muted-foreground">6</span>
+                      <span className="font-semibold text-muted-foreground">0</span>
                     </div>
                   </div>
                 </Card>
@@ -261,15 +371,15 @@ const AdminDashboard = () => {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">Total Routes</span>
-                      <span className="font-semibold">24</span>
+                      <span className="font-semibold">0</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">Active Routes</span>
-                      <span className="font-semibold text-success">22</span>
+                      <span className="font-semibold text-success">0</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">Coverage</span>
-                      <span className="font-semibold text-primary">91.7%</span>
+                      <span className="font-semibold text-primary">0%</span>
                     </div>
                   </div>
                 </Card>
