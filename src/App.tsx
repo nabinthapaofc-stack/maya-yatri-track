@@ -12,7 +12,6 @@ import PassengerSearch from "./pages/passenger/Search";
 import PassengerMessages from "./pages/passenger/Messages";
 import DriverDashboard from "./pages/driver/Dashboard";
 import AdminDashboard from "./pages/admin/Dashboard";
-import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import SplashAnimation from "./components/SplashAnimation.jsx";
 
@@ -55,9 +54,6 @@ const App = () => {
             {/* Admin Routes */}
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             
-            {/* Profile Route */}
-            <Route path="/profile" element={<Profile />} />
-
             {/* Catch-all 404 */}
             <Route path="*" element={<NotFound />} />
           </Routes>
