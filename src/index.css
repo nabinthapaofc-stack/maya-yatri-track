@@ -11,7 +11,7 @@ All colors MUST be HSL.
     --background: 0 0% 100%;
     --foreground: 215 25% 27%;
 
-    --card: 0 0% 100%;
+    --card: 217 100% 98%;
     --card-foreground: 215 25% 27%;
 
     --popover: 0 0% 100%;
@@ -23,8 +23,8 @@ All colors MUST be HSL.
     --secondary: 214 32% 91%;
     --secondary-foreground: 215 25% 27%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 217 100% 97%;
+    --muted-foreground: 217 30% 55%;
 
     --accent: 213 97% 87%;
     --accent-foreground: 217 91% 60%;
@@ -38,8 +38,8 @@ All colors MUST be HSL.
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
+    --border: 217 90% 85%;
+    --input: 217 95% 90%;
     --ring: 217 91% 60%;
 
     --radius: 0.75rem;
@@ -49,7 +49,7 @@ All colors MUST be HSL.
     --yatri-blue-dark: 217 91% 50%;
     --yatri-blue-light: 213 97% 87%;
     --yatri-gradient: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(210 100% 70%) 100%);
-    --yatri-gradient-subtle: linear-gradient(180deg, hsl(213 97% 97%) 0%, hsl(0 0% 100%) 100%);
+    --yatri-gradient-subtle: linear-gradient(180deg, hsl(217 100% 97%) 0%, hsl(217 100% 99%) 100%);
     
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -337,6 +337,13 @@ All colors MUST be HSL.
     background-size: 120px 120px, 120px 120px;
     opacity: 0.4;
     animation: heroGridPulse 8s ease-in-out infinite;
+  }
+
+  /* soft blue grid background used on large sections to give a subtle brand tint */
+  .bg-grid-white {
+    background-image: linear-gradient(rgba(30,64,175,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30,64,175,0.03) 1px, transparent 1px);
+    background-size: 120px 120px, 120px 120px;
   }
 
   .hero-pin {

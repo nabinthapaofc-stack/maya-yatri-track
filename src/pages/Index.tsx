@@ -38,11 +38,14 @@ const Index = () => {
         <div className="relative z-10 container mx-auto px-4 py-20 md:py-32">
           <div className="flex flex-col items-center text-center">
             {/* Logo Animation */}
-            <div className="mb-16 animate-scale-in">
-              <div className="text-7xl md:text-9xl font-bold text-white drop-shadow-2xl">
-                म <span className="font-light">Yatri</span>
+              <div className="mb-16 animate-scale-in">
+              <div className="text-7xl md:text-9xl font-bold text-white drop-shadow-2xl flex items-center gap-3">
+                <span>म</span>
+                <span className="inline-flex items-center px-4 py-1 rounded-lg bg-yatri-blue text-white shadow-blue text-3xl md:text-5xl">
+                  Yatri
+                </span>
               </div>
-              <p className="text-white/60 text-sm md:text-base mt-4 tracking-widest">
+              <p className="text-white/80 text-sm md:text-base mt-4 tracking-widest">
                 मेरो यात्रा, सजिलो यात्रा
               </p>
             </div>
@@ -53,14 +56,14 @@ const Index = () => {
                 <div className="flex flex-col sm:flex-row gap-4 mb-16 animate-fade-in" style={{ animationDelay: "0.1s" }}>
                   <Button
                     size="lg"
-                    className="bg-white text-primary hover:bg-white/90 shadow-lg text-lg px-8 py-6"
+                    className="bg-yatri-blue text-white hover:bg-yatri-blue-dark shadow-lg text-lg px-8 py-6"
                     onClick={() => navigate("/auth?role=passenger")}
                   >
                     I'm a Passenger
                   </Button>
                   <Button
                     size="lg"
-                    className="bg-white/20 text-white hover:bg-white/30 border-2 border-white/50 backdrop-blur-sm text-lg px-8 py-6"
+                    className="bg-white text-yatri-blue border border-yatri-blue/20 hover:bg-white/90 text-lg px-8 py-6"
                     onClick={() => navigate("/auth?role=driver")}
                   >
                     I'm a Driver

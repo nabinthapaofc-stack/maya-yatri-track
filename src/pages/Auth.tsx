@@ -78,7 +78,7 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 gradient-yatri-subtle">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-b from-yatri-blue/5 to-white">
       <div className="w-full max-w-md">
         {/* Back Button */}
         <Button
@@ -91,13 +91,13 @@ const Auth = () => {
           Back to Home
         </Button>
 
-        <Card className="shadow-lg">
+        <Card className="shadow-lg rounded-2xl border">
           <CardHeader className="space-y-4 text-center pb-4">
-            <div className="text-5xl font-bold text-primary mx-auto">
-              म <span className="font-normal">Yatri</span>
+            <div className="mx-auto w-20 h-20 rounded-full flex items-center justify-center bg-yatri-blue shadow-blue text-white text-2xl font-bold">
+              म
             </div>
             <div>
-              <CardTitle className="text-2xl">{getRoleTitle()} {isLogin ? "Login" : "Sign Up"}</CardTitle>
+              <CardTitle className="text-2xl text-gray-900">{getRoleTitle()} {isLogin ? "Login" : "Sign Up"}</CardTitle>
               <CardDescription>
                 {isLogin ? "Welcome back!" : "Create your account"}
               </CardDescription>
@@ -145,7 +145,7 @@ const Auth = () => {
               </div>
 
               {/* Action Button */}
-              <Button className="w-full" size="lg" onClick={handleSubmit} disabled={isLoading}>
+              <Button className="w-full bg-yatri-blue text-white hover:bg-yatri-blue-dark" size="lg" onClick={handleSubmit} disabled={isLoading}>
                 {isLoading ? "Please wait..." : isLogin ? "Login" : "Sign Up"}
               </Button>
 

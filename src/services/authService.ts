@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabaseClient";
-import { setAuthUser } from "@/lib/authSession";
+import { setAuthUser, getAuthUser, clearAuthUser } from "@/lib/authSession";
 
 export class AuthServiceError extends Error {
   constructor(message: string) {
@@ -114,4 +114,21 @@ export const updateUserProfile = async (userId: string, updates: Partial<AppUser
     setAuthUser({ ...currentUser, ...updates });
   }
   return data;
+};
+
+export const signOut = async () => {
+  try {
+    if (supabase && typeof (supabase as any).auth?.signOut === "function") {
+      // supabase v2 exposes auth.signOut()
+      // call and ignore errors — we'll clear local session regardless
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await (supabase as any).auth.signOut();
+    }
+  } catch (err) {
+    // swallow supabase sign-out errors but log for debugging
+    // eslint-disable-next-line no-console
+    console.warn("supabase signOut failed", err);
+  }
+
+  clearAuthUser();
 };
