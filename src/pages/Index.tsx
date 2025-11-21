@@ -119,9 +119,9 @@ const Index = () => {
                 ].map((item) => (
                   <div
                     key={item}
-                    className="p-4 rounded-2xl border border-border/60 bg-card/40 backdrop-blur hover:border-primary/50 transition"
+                    className="p-4 rounded-2xl border border-yatri-blue/10 bg-white shadow-sm hover:shadow-lg transition"
                   >
-                    <p className="text-sm text-muted-foreground">{item}</p>
+                    <p className="text-sm text-yatri-blue-dark">{item}</p>
                   </div>
                 ))}
               </div>
@@ -224,47 +224,47 @@ const Index = () => {
             Transforming Nepal's public transportation with technology, transparency, and trust
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Feature 1 */}
-            <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-card hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 rounded-full gradient-yatri flex items-center justify-center mb-4">
-                <Bus className="w-8 h-8 text-white" />
+            <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-yatri-blue/10 hover:shadow-lg transition-shadow">
+              <div className="w-16 h-16 rounded-full bg-yatri-blue text-white flex items-center justify-center mb-4 shadow-blue">
+                <Bus className="w-8 h-8" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Live Tracking</h3>
-              <p className="text-muted-foreground">
+              <p className="text-yatri-blue-dark">
                 Track buses in real-time with accurate ETAs and route information
               </p>
             </div>
 
             {/* Feature 2 */}
-            <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-card hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 rounded-full gradient-yatri flex items-center justify-center mb-4">
-                <TrendingUp className="w-8 h-8 text-white" />
+            <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-yatri-blue/10 hover:shadow-lg transition-shadow">
+              <div className="w-16 h-16 rounded-full bg-yatri-blue text-white flex items-center justify-center mb-4 shadow-blue">
+                <TrendingUp className="w-8 h-8" />
               </div>
               <h3 className="text-xl font-semibold mb-2">AI-Powered</h3>
-              <p className="text-muted-foreground">
+              <p className="text-yatri-blue-dark">
                 Smart route suggestions and demand predictions for optimal travel
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-card hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 rounded-full gradient-yatri flex items-center justify-center mb-4">
-                <Shield className="w-8 h-8 text-white" />
+            <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-yatri-blue/10 hover:shadow-lg transition-shadow">
+              <div className="w-16 h-16 rounded-full bg-yatri-blue text-white flex items-center justify-center mb-4 shadow-blue">
+                <Shield className="w-8 h-8" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Safe & Verified</h3>
-              <p className="text-muted-foreground">
+              <p className="text-yatri-blue-dark">
                 All drivers verified with license and documents. SOS features for emergencies
               </p>
             </div>
 
             {/* Feature 4 */}
-            <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-card hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 rounded-full gradient-yatri flex items-center justify-center mb-4">
-                <Users className="w-8 h-8 text-white" />
+            <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-yatri-blue/10 hover:shadow-lg transition-shadow">
+              <div className="w-16 h-16 rounded-full bg-yatri-blue text-white flex items-center justify-center mb-4 shadow-blue">
+                <Users className="w-8 h-8" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Connected</h3>
-              <p className="text-muted-foreground">
+              <p className="text-yatri-blue-dark">
                 Direct communication between passengers, drivers, and authorities
               </p>
             </div>
