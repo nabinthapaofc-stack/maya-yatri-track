@@ -15,7 +15,7 @@ import PassengerMessages from "./pages/passenger/Messages";
 import DriverDashboard from "./pages/driver/Dashboard";
 import AdminDashboard from "./pages/admin/Dashboard";
 import NotFound from "./pages/NotFound";
-import SplashAnimation from "./components/SplashAnimation.jsx";
+import LoadingSplash from "./components/LoadingSplash";
 
 const queryClient = new QueryClient();
 
@@ -31,7 +31,7 @@ const App = () => {
   }, []);
 
   if (showSplash) {
-    return <SplashAnimation />;
+    return <LoadingSplash visible={showSplash} />;
   }
 
   return (
