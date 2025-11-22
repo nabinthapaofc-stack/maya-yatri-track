@@ -1,0 +1,81 @@
+/* LoadingSplash styles and keyframes */
+
+.ls-overlay {
+  opacity: 1;
+  transition: opacity 300ms ease;
+}
+.ls-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.ls-visible {
+  opacity: 1;
+}
+
+.ls-bg {
+  /* subtle frosted background */
+  background: rgba(255,255,255,0.8);
+}
+
+/* SVG Fade-in */
+.ls-svg-fade-in {
+  opacity: 0;
+  animation: ls-svg-fade 400ms ease-out forwards;
+}
+@keyframes ls-svg-fade {
+  to { opacity: 1; }
+}
+
+/* Rings rotation */
+.ls-ring { transform-origin: center; }
+.ls-ring-outer { animation: ls-rotate-outer 18s linear infinite; }
+.ls-ring-middle { animation: ls-rotate-middle 14s linear infinite; }
+.ls-ring-inner { animation: ls-rotate-inner 10s linear infinite; }
+
+@keyframes ls-rotate-outer { to { transform: rotate(360deg); } }
+@keyframes ls-rotate-middle { to { transform: rotate(-360deg); } }
+@keyframes ls-rotate-inner { to { transform: rotate(360deg); } }
+
+/* Logo container */
+.ls-logo-container {
+  width: 160px; height: 160px; border-radius: 9999px;
+  display:flex; align-items:center; justify-content:center;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.4);
+  box-shadow: 0 12px 30px rgba(31,79,195,0.08);
+  animation: ls-bounce 2.8s ease-in-out infinite;
+}
+.ls-logo {
+  width: 112px; height:112px; object-fit:contain; border-radius:8px;
+}
+/* fallback logo styling when image fails */
+.ls-logo-fallback { display:flex; align-items:center; justify-content:center; width:112px; height:112px; border-radius:8px; background: rgba(255,255,255,0.9); }
+@keyframes ls-bounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+/* Subtitle fade */
+.ls-subtitle-fade { opacity: 0; animation: ls-subtitle-fade 600ms ease-out 200ms forwards; }
+@keyframes ls-subtitle-fade { to { opacity: 1; } }
+
+/* Floating dots */
+.ls-dot { position: absolute; border-radius: 9999px; opacity: 0.9 }
+.ls-dot-a { left: 12px; top: 24px; width: 8px; height: 8px; background: #8fb6ff; animation: ls-pulse-a 2.6s ease-in-out infinite; }
+.ls-dot-b { right: 16px; top: 32px; width: 6px; height: 6px; background: #bfe0ff; animation: ls-pulse-b 3.2s ease-in-out infinite; }
+.ls-dot-c { left: 28px; bottom: 40px; width: 6px; height: 6px; background: #bfe0ff; animation: ls-pulse-c 2s ease-in-out infinite; }
+
+@keyframes ls-pulse-a { 0%{ opacity:0.6 } 50%{ opacity:1 } 100%{ opacity:0.6 } }
+@keyframes ls-pulse-b { 0%{ opacity:0.6 } 50%{ opacity:1 } 100%{ opacity:0.6 } }
+@keyframes ls-pulse-c { 0%{ opacity:0.6 } 50%{ opacity:1 } 100%{ opacity:0.6 } }
+
+/* Make sure the svg sits behind the logo but centered */
+.ls-rings { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); pointer-events: none; }
+
+/* Responsive scaling: keep rings centered and scale on small screens */
+@media (max-width: 420px) {
+  .ls-rings { width: 260px; height: 260px; }
+  .ls-logo-container { width: 136px; height: 136px; }
+  .ls-logo { width: 96px; height: 96px; }
+}
