@@ -13,8 +13,8 @@
 }
 
 .ls-bg {
-  /* subtle frosted background */
-  background: rgba(255,255,255,0.8);
+  /* subtle frosted background with slight blue tint */
+  background: linear-gradient(180deg, rgba(240,248,255,0.92), rgba(245,250,255,0.9));
 }
 
 /* SVG Fade-in */
@@ -64,10 +64,10 @@
 .ls-logo-container {
   width: 160px; height: 160px; border-radius: 9999px;
   display:flex; align-items:center; justify-content:center;
-  background: rgba(255,255,255,0.45);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255,255,255,0.28);
-  box-shadow: 0 18px 40px rgba(31,79,195,0.06);
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.32);
+  box-shadow: 0 22px 48px rgba(31,79,195,0.08);
   animation: ls-bounce 2.8s ease-in-out infinite;
 }
 .ls-logo {
@@ -75,6 +75,37 @@
 }
 /* fallback logo styling when image fails */
 .ls-logo-fallback { display:flex; align-items:center; justify-content:center; width:112px; height:112px; border-radius:50%; background: rgba(255,255,255,0.9); }
+
+/* Particles: small soft dots that orbit the rings */
+.ls-particle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center;
+  border-radius: 9999px;
+  filter: blur(0.4px);
+  opacity: 0.95;
+  pointer-events: none;
+}
+.ls-particle-1 { width: 8px; height:8px; background: #cfe6ff; transform: translate(-50%,-50%) rotate(0deg) translateX(200px); animation: ls-orbit-1 14s linear infinite, ls-pulse-dot 2.8s ease-in-out infinite; }
+.ls-particle-2 { width: 6px; height:6px; background: #bfe0ff; transform: translate(-50%,-50%) rotate(45deg) translateX(210px); animation: ls-orbit-2 18s linear infinite, ls-pulse-dot 3.2s ease-in-out infinite; }
+.ls-particle-3 { width: 6px; height:6px; background: #a7d4ff; transform: translate(-50%,-50%) rotate(90deg) translateX(190px); animation: ls-orbit-3 12s linear infinite, ls-pulse-dot 2.2s ease-in-out infinite; }
+.ls-particle-4 { width: 7px; height:7px; background: #d6ecff; transform: translate(-50%,-50%) rotate(135deg) translateX(200px); animation: ls-orbit-4 16s linear infinite, ls-pulse-dot 2.9s ease-in-out infinite; }
+.ls-particle-5 { width: 6px; height:6px; background: #cfe6ff; transform: translate(-50%,-50%) rotate(180deg) translateX(205px); animation: ls-orbit-5 20s linear infinite, ls-pulse-dot 2.4s ease-in-out infinite; }
+.ls-particle-6 { width: 5px; height:5px; background: #bfe0ff; transform: translate(-50%,-50%) rotate(225deg) translateX(195px); animation: ls-orbit-6 13s linear infinite, ls-pulse-dot 2.6s ease-in-out infinite; }
+.ls-particle-7 { width: 6px; height:6px; background: #a7d4ff; transform: translate(-50%,-50%) rotate(270deg) translateX(210px); animation: ls-orbit-7 17s linear infinite, ls-pulse-dot 3.0s ease-in-out infinite; }
+.ls-particle-8 { width: 5px; height:5px; background: #d6ecff; transform: translate(-50%,-50%) rotate(315deg) translateX(198px); animation: ls-orbit-8 15s linear infinite, ls-pulse-dot 2.1s ease-in-out infinite; }
+
+@keyframes ls-orbit-1 { to { transform: translate(-50%,-50%) rotate(360deg) translateX(200px); } }
+@keyframes ls-orbit-2 { to { transform: translate(-50%,-50%) rotate(360deg) translateX(210px); } }
+@keyframes ls-orbit-3 { to { transform: translate(-50%,-50%) rotate(360deg) translateX(190px); } }
+@keyframes ls-orbit-4 { to { transform: translate(-50%,-50%) rotate(360deg) translateX(200px); } }
+@keyframes ls-orbit-5 { to { transform: translate(-50%,-50%) rotate(360deg) translateX(205px); } }
+@keyframes ls-orbit-6 { to { transform: translate(-50%,-50%) rotate(360deg) translateX(195px); } }
+@keyframes ls-orbit-7 { to { transform: translate(-50%,-50%) rotate(360deg) translateX(210px); } }
+@keyframes ls-orbit-8 { to { transform: translate(-50%,-50%) rotate(360deg) translateX(198px); } }
+
+@keyframes ls-pulse-dot { 0%{ opacity:0.6; transform: scale(0.92) } 50%{ opacity:1; transform: scale(1.05) } 100%{ opacity:0.6; transform: scale(0.92) } }
 @keyframes ls-bounce {
   0% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
@@ -99,8 +130,14 @@
 .ls-rings { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); pointer-events: none; }
 
 /* Responsive scaling: keep rings centered and scale on small screens */
-@media (max-width: 420px) {
-  .ls-rings { width: 260px; height: 260px; }
-  .ls-logo-container { width: 136px; height: 136px; }
+@media (max-width: 720px) {
+  .ls-rings { width: 340px; height: 340px; }
+  .ls-logo-container { width: 140px; height: 140px; }
   .ls-logo { width: 96px; height: 96px; }
+}
+
+@media (max-width: 420px) {
+  .ls-rings { width: 300px; height: 300px; }
+  .ls-logo-container { width: 120px; height: 120px; }
+  .ls-logo { width: 88px; height: 88px; }
 }

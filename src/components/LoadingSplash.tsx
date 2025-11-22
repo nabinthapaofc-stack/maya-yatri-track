@@ -47,42 +47,47 @@ const LoadingSplash: React.FC<Props> = ({ visible, logoSrc = "/animated.jpg" }) 
         {/* Rings (SVG) with fade-in */}
         <svg
           className="ls-rings ls-svg-fade-in"
-          width="360"
-          height="360"
-          viewBox="0 0 360 360"
+          width="440"
+          height="440"
+          viewBox="0 0 440 440"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden
         >
-          <g transform="translate(180,180)">
+          <g transform="translate(220,220)">
             <circle
               className="ls-ring ls-ring-outer"
-              r="140"
+              r="170"
               fill="none"
-              stroke="rgba(66,135,255,0.12)"
-              strokeWidth="8"
+              stroke="rgba(66,135,255,0.16)"
+              strokeWidth="10"
               strokeLinecap="round"
-              strokeDasharray="18 560"
+              strokeDasharray="22 700"
             />
             <circle
               className="ls-ring ls-ring-middle"
-              r="100"
+              r="120"
               fill="none"
-              stroke="rgba(66,135,255,0.14)"
-              strokeWidth="6"
+              stroke="rgba(66,135,255,0.18)"
+              strokeWidth="7"
               strokeLinecap="round"
-              strokeDasharray="6 420"
+              strokeDasharray="8 520"
             />
             <circle
               className="ls-ring ls-ring-inner"
-              r="60"
+              r="80"
               fill="none"
-              stroke="rgba(66,135,255,0.18)"
-              strokeWidth="4"
+              stroke="rgba(66,135,255,0.22)"
+              strokeWidth="5"
               strokeLinecap="round"
-              strokeDasharray="4 240"
+              strokeDasharray="6 320"
             />
           </g>
         </svg>
+
+        {/* Particles orbiting the rings */}
+        {[...Array(8)].map((_, i) => (
+          <div key={i} className={`ls-particle ls-particle-${i + 1}`} />
+        ))}
 
         {/* Logo container (image with graceful fallback) */}
         <div className="ls-logo-container">
