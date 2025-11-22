@@ -61,6 +61,7 @@ const LoadingSplash: React.FC<Props> = ({ visible, logoSrc = "/animated.jpg" }) 
               stroke="rgba(66,135,255,0.12)"
               strokeWidth="8"
               strokeLinecap="round"
+              strokeDasharray="18 560"
             />
             <circle
               className="ls-ring ls-ring-middle"
@@ -69,6 +70,7 @@ const LoadingSplash: React.FC<Props> = ({ visible, logoSrc = "/animated.jpg" }) 
               stroke="rgba(66,135,255,0.14)"
               strokeWidth="6"
               strokeLinecap="round"
+              strokeDasharray="6 420"
             />
             <circle
               className="ls-ring ls-ring-inner"
@@ -77,6 +79,7 @@ const LoadingSplash: React.FC<Props> = ({ visible, logoSrc = "/animated.jpg" }) 
               stroke="rgba(66,135,255,0.18)"
               strokeWidth="4"
               strokeLinecap="round"
+              strokeDasharray="4 240"
             />
           </g>
         </svg>
