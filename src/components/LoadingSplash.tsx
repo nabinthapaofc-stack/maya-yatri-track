@@ -64,6 +64,26 @@ const LoadingSplash: React.FC<Props> = ({ visible, logoSrc = "/animated.jpg" }) 
           </defs>
           <g transform="translate(280,280)">
             <circle
+              className="ls-ring ls-ring-5"
+              r="320"
+              fill="none"
+              stroke="rgba(66,135,255,0.16)"
+              strokeWidth="6"
+              strokeLinecap="round"
+              strokeDasharray="18 1200"
+              filter="url(#ls-glow)"
+            />
+            <circle
+              className="ls-ring ls-ring-4"
+              r="260"
+              fill="none"
+              stroke="rgba(66,135,255,0.18)"
+              strokeWidth="8"
+              strokeLinecap="round"
+              strokeDasharray="20 980"
+              filter="url(#ls-glow)"
+            />
+            <circle
               className="ls-ring ls-ring-outer"
               r="200"
               fill="none"

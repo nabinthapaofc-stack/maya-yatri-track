@@ -29,6 +29,12 @@
 /* Rings rotation */
 .ls-ring { transform-origin: center; }
 /* combine rotation with a dissipating (fade+scale) effect to make rings feel like they diffuse */
+.ls-ring-5 {
+  animation: ls-rotate-5 26s linear infinite, ls-dissipate-5 13s ease-in-out infinite;
+}
+.ls-ring-4 {
+  animation: ls-rotate-4 22s linear infinite, ls-dissipate-4 11s ease-in-out infinite;
+}
 .ls-ring-outer {
   animation: ls-rotate-outer 18s linear infinite, ls-dissipate-outer 9s ease-in-out infinite;
 }
@@ -59,6 +65,21 @@
   50% { opacity: 0.28; transform: scale(1.02) rotate(180deg); }
   100% { opacity: 1; transform: scale(1) rotate(360deg); }
 }
+
+@keyframes ls-dissipate-4 {
+  0% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.16; transform: scale(1.07) rotate(180deg); }
+  100% { opacity: 1; transform: scale(1) rotate(360deg); }
+}
+
+@keyframes ls-dissipate-5 {
+  0% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.12; transform: scale(1.08) rotate(180deg); }
+  100% { opacity: 1; transform: scale(1) rotate(360deg); }
+}
+
+@keyframes ls-rotate-5 { to { transform: rotate(-360deg); } }
+@keyframes ls-rotate-4 { to { transform: rotate(360deg); } }
 
 /* Logo container */
 .ls-logo-container {
