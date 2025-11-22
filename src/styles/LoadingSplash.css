@@ -87,14 +87,14 @@
   opacity: 0.95;
   pointer-events: none;
 }
-.ls-particle-1 { width: 8px; height:8px; background: #cfe6ff; transform: translate(-50%,-50%) rotate(0deg) translateX(200px); animation: ls-orbit-1 14s linear infinite, ls-pulse-dot 2.8s ease-in-out infinite; }
-.ls-particle-2 { width: 6px; height:6px; background: #bfe0ff; transform: translate(-50%,-50%) rotate(45deg) translateX(210px); animation: ls-orbit-2 18s linear infinite, ls-pulse-dot 3.2s ease-in-out infinite; }
-.ls-particle-3 { width: 6px; height:6px; background: #a7d4ff; transform: translate(-50%,-50%) rotate(90deg) translateX(190px); animation: ls-orbit-3 12s linear infinite, ls-pulse-dot 2.2s ease-in-out infinite; }
-.ls-particle-4 { width: 7px; height:7px; background: #d6ecff; transform: translate(-50%,-50%) rotate(135deg) translateX(200px); animation: ls-orbit-4 16s linear infinite, ls-pulse-dot 2.9s ease-in-out infinite; }
-.ls-particle-5 { width: 6px; height:6px; background: #cfe6ff; transform: translate(-50%,-50%) rotate(180deg) translateX(205px); animation: ls-orbit-5 20s linear infinite, ls-pulse-dot 2.4s ease-in-out infinite; }
-.ls-particle-6 { width: 5px; height:5px; background: #bfe0ff; transform: translate(-50%,-50%) rotate(225deg) translateX(195px); animation: ls-orbit-6 13s linear infinite, ls-pulse-dot 2.6s ease-in-out infinite; }
-.ls-particle-7 { width: 6px; height:6px; background: #a7d4ff; transform: translate(-50%,-50%) rotate(270deg) translateX(210px); animation: ls-orbit-7 17s linear infinite, ls-pulse-dot 3.0s ease-in-out infinite; }
-.ls-particle-8 { width: 5px; height:5px; background: #d6ecff; transform: translate(-50%,-50%) rotate(315deg) translateX(198px); animation: ls-orbit-8 15s linear infinite, ls-pulse-dot 2.1s ease-in-out infinite; }
+.ls-particle-1 { width: 10px; height:10px; background: #cfe6ff; transform: translate(-50%,-50%) rotate(0deg) translateX(260px); animation: ls-orbit-1 14s linear infinite, ls-pulse-dot 2.8s ease-in-out infinite; }
+.ls-particle-2 { width: 8px; height:8px; background: #bfe0ff; transform: translate(-50%,-50%) rotate(45deg) translateX(280px); animation: ls-orbit-2 18s linear infinite, ls-pulse-dot 3.2s ease-in-out infinite; }
+.ls-particle-3 { width: 8px; height:8px; background: #a7d4ff; transform: translate(-50%,-50%) rotate(90deg) translateX(240px); animation: ls-orbit-3 12s linear infinite, ls-pulse-dot 2.2s ease-in-out infinite; }
+.ls-particle-4 { width: 9px; height:9px; background: #d6ecff; transform: translate(-50%,-50%) rotate(135deg) translateX(260px); animation: ls-orbit-4 16s linear infinite, ls-pulse-dot 2.9s ease-in-out infinite; }
+.ls-particle-5 { width: 8px; height:8px; background: #cfe6ff; transform: translate(-50%,-50%) rotate(180deg) translateX(268px); animation: ls-orbit-5 20s linear infinite, ls-pulse-dot 2.4s ease-in-out infinite; }
+.ls-particle-6 { width: 7px; height:7px; background: #bfe0ff; transform: translate(-50%,-50%) rotate(225deg) translateX(250px); animation: ls-orbit-6 13s linear infinite, ls-pulse-dot 2.6s ease-in-out infinite; }
+.ls-particle-7 { width: 8px; height:8px; background: #a7d4ff; transform: translate(-50%,-50%) rotate(270deg) translateX(280px); animation: ls-orbit-7 17s linear infinite, ls-pulse-dot 3.0s ease-in-out infinite; }
+.ls-particle-8 { width: 7px; height:7px; background: #d6ecff; transform: translate(-50%,-50%) rotate(315deg) translateX(255px); animation: ls-orbit-8 15s linear infinite, ls-pulse-dot 2.1s ease-in-out infinite; }
 
 @keyframes ls-orbit-1 { to { transform: translate(-50%,-50%) rotate(360deg) translateX(200px); } }
 @keyframes ls-orbit-2 { to { transform: translate(-50%,-50%) rotate(360deg) translateX(210px); } }

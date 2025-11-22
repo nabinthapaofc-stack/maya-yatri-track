@@ -47,39 +47,51 @@ const LoadingSplash: React.FC<Props> = ({ visible, logoSrc = "/animated.jpg" }) 
         {/* Rings (SVG) with fade-in */}
         <svg
           className="ls-rings ls-svg-fade-in"
-          width="440"
-          height="440"
-          viewBox="0 0 440 440"
+          width="560"
+          height="560"
+          viewBox="0 0 560 560"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden
         >
-          <g transform="translate(220,220)">
+          <defs>
+            <filter id="ls-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="6" result="coloredBlur" />
+              <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <g transform="translate(280,280)">
             <circle
               className="ls-ring ls-ring-outer"
-              r="170"
+              r="200"
               fill="none"
-              stroke="rgba(66,135,255,0.16)"
-              strokeWidth="10"
+              stroke="rgba(66,135,255,0.22)"
+              strokeWidth="12"
               strokeLinecap="round"
-              strokeDasharray="22 700"
+              strokeDasharray="28 900"
+              filter="url(#ls-glow)"
             />
             <circle
               className="ls-ring ls-ring-middle"
-              r="120"
+              r="150"
               fill="none"
-              stroke="rgba(66,135,255,0.18)"
-              strokeWidth="7"
+              stroke="rgba(66,135,255,0.26)"
+              strokeWidth="9"
               strokeLinecap="round"
-              strokeDasharray="8 520"
+              strokeDasharray="12 660"
+              filter="url(#ls-glow)"
             />
             <circle
               className="ls-ring ls-ring-inner"
-              r="80"
+              r="100"
               fill="none"
-              stroke="rgba(66,135,255,0.22)"
-              strokeWidth="5"
+              stroke="rgba(66,135,255,0.32)"
+              strokeWidth="6"
               strokeLinecap="round"
-              strokeDasharray="6 320"
+              strokeDasharray="10 420"
+              filter="url(#ls-glow)"
             />
           </g>
         </svg>
