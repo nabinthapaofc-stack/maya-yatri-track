@@ -1,5 +1,5 @@
 # म Yatri - Smart Public Transportation for Nepal
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/nabinthapaofc-stack/maya-yatri-track)
+
 
 **म Yatri** (trans. *Maya Yatri*) is a modern, collaborative mobility platform designed to enhance the public transportation experience in Nepal. The application provides real-time bus tracking, direct communication channels, and role-based management tools for passengers, drivers, and administrators.
 
